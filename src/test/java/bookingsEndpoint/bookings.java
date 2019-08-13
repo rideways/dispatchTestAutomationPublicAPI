@@ -60,7 +60,7 @@ public class bookings {
 
         MainBookings bookings = null;
         try {
-            bookings = objectMapper.readValue(new File("C:\\Users\\gohilri\\Documents\\01.Github_Projects\\dispatchPublicAPI\\src\\main\\java\\serviceEndpoints\\bookingsMapper\\bookings.json"), MainBookings.class);
+            bookings = objectMapper.readValue(new File("./src/main/java/serviceEndpoints/bookingsMapper/bookings.json"), MainBookings.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
