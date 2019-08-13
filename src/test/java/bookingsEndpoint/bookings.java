@@ -1,6 +1,7 @@
 package bookingsEndpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import serviceEndpoints.bookingsMapper.MainBookings;
@@ -15,32 +16,98 @@ public class bookings {
 
     String mockData = "./src/main/java/serviceEndpoints/mockData/bookings.json";
 
-    @DataProvider(name="bookingsEndpointDateTests")
-    private Iterator<Object[]> setBookingsForDate(){
-        Collection<Object[]> dp = new ArrayList<Object[]>()
-        {
-            {
-                add(new Object[] {"Ensure the pickup date time is in the correct format",""});
-            }
-        };
-
-        return dp.iterator();
-    }
-
+    /**
+     * LINKS TEST SUITE
+     * @return
+     */
     @DataProvider(name="bookingsEndpointTypeTests")
     private Iterator<Object[]> setBookingsForType(){
         Collection<Object[]> dp = new ArrayList<Object[]>()
         {
             {
-                add(new Object[] {"Ensure the type return for links is correct",""});
+                add(new Object[] {"Ensure the type return for links is correct where: ","A ....","POST"});
             }
         };
 
         return dp.iterator();
     }
 
-    @Test(dataProvider="bookingsEndpointDateTests",groups={"regression","bookingDateTests"})
-    public void testBookingsEndpointDate(String regressionTest, String test){
+    @Test(dataProvider="bookingsEndpointTypeTests",groups={"bookingsRegression","bookingTypeTests"})
+    public void testBookingsEndpointType(String regressionTest, String testCondition, String expectedOutcome){
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        MainBookings bookings = null;
+        try {
+            bookings = objectMapper.readValue(new File(mockData), MainBookings.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(bookings.getBookings()[0].getLinks()[0].getType());
+
+        Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getLinks()[0].getType()));
+    }
+
+    /**
+     * BOOKINGS TEST SUITE
+     * @return
+     */
+
+    // LINKS
+
+    // TESTS - TBD
+
+    // REFERENCE
+
+    @DataProvider(name="bookingsEndpointReferenceTests")
+    private Iterator<Object[]> setBookingsForReference(){
+        Collection<Object[]> dp = new ArrayList<Object[]>()
+        {
+            {
+                add(new Object[] {"Ensure the reference matches as expected","A ....","12345678"});
+                add(new Object[] {"Ensure the reference is not the trip ID","A ....","12345678"});
+                add(new Object[] {"Ensure the reference does not contain text","A ....","12345678"});
+            }
+        };
+
+        return dp.iterator();
+    }
+
+    @Test(dataProvider="bookingsEndpointReferenceTests",groups={"bookingsRegression","bookingReferenceTests"})
+    public void testBookingsEndpointReference(String regressionTest, String testCondition, String expectedOutcome){
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        MainBookings bookings = null;
+        try {
+            bookings = objectMapper.readValue(new File(mockData), MainBookings.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(bookings.getBookings()[0].getReference());
+
+        Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
+    }
+
+    // DATE TESTS
+
+    @DataProvider(name="bookingsEndpointDateTests")
+    private Iterator<Object[]> setBookingsForDate(){
+        Collection<Object[]> dp = new ArrayList<Object[]>()
+        {
+            {
+                add(new Object[] {"Ensure the pickup date time is in the correct format","A ....","POST"});
+            }
+        };
+
+        return dp.iterator();
+    }
+
+
+    @Test(dataProvider="bookingsEndpointDateTests",groups={"bookingsRegression","bookingDateTests"})
+    public void testBookingsEndpointDate(String regressionTest, String testCondition, String expectedOutcome){
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -54,19 +121,4 @@ public class bookings {
         System.out.println(bookings.getBookings()[0].getPickup_date_time());
     }
 
-    @Test(dataProvider="bookingsEndpointTypeTests",groups={"regression","bookingTypeTests"})
-    public void testBookingsEndpointType(String regressionTest, String test){
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-
-        MainBookings bookings = null;
-        try {
-            bookings = objectMapper.readValue(new File(mockData), MainBookings.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(bookings.getBookings()[0].getLinks()[0].getType());
-    }
 }
