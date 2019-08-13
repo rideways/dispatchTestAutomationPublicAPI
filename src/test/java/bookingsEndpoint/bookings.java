@@ -13,6 +13,8 @@ import java.util.Iterator;
 
 public class bookings {
 
+    String mockData = "./src/main/java/serviceEndpoints/mockData/bookings.json";
+
     @DataProvider(name="bookingsEndpointDateTests")
     private Iterator<Object[]> setBookingsForDate(){
         Collection<Object[]> dp = new ArrayList<Object[]>()
@@ -44,7 +46,7 @@ public class bookings {
 
         MainBookings bookings = null;
         try {
-            bookings = objectMapper.readValue(new File("C:\\Users\\gohilri\\Documents\\01.Github_Projects\\dispatchPublicAPI\\src\\main\\java\\serviceEndpoints\\bookingsMapper\\bookings.json"), MainBookings.class);
+            bookings = objectMapper.readValue(new File(mockData), MainBookings.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,7 +62,7 @@ public class bookings {
 
         MainBookings bookings = null;
         try {
-            bookings = objectMapper.readValue(new File("./src/main/java/serviceEndpoints/bookingsMapper/bookings.json"), MainBookings.class);
+            bookings = objectMapper.readValue(new File(mockData), MainBookings.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
