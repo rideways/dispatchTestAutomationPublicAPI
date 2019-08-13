@@ -1,0 +1,56 @@
+{
+  "links": [
+    {
+      "href": "/bookings?page=2",
+      "rel": "next",
+      "type": "GET"
+    }
+  ],
+  "bookings": [
+    {
+      "links": [
+        {
+          "href": "/booking/12345678/responses",
+          "rel": "accept",
+          "type": "POST"
+        }
+      ],
+      "reference": "12345678",
+      "state_hash": "3cddc7b77d912fc98e41a996a4c87986",
+      "status": "NEW",
+      "price": {
+        "amount": "32.00",
+        "currency": "GBP",
+        "locale": "en_GB"
+      },
+      "pickup_date_time": "2019-06-29T09:12:33Z",
+      "pickup_date_time_zone": "Europe/London",
+      "vehicle_type": "STANDARD",
+      "passenger_count": 2,
+      "additional_comments": "We are travelling with a baby, please make sure there is a baby seat",
+      "meet_and_greet": true,
+      "meet_and_greet_message": "The Bluth Family",
+      "passenger": {
+        "title": "Mr",
+        "name": "John Doe",
+        "telephone_number": "+447700900000"
+      },
+      "pickup": {
+        "latitude": 53.4883114,
+        "longitude": -2.2522131,
+        "address": "Manchester Airport (MAN), Manchester M90 1QX, UK",
+        "postcode": "M90 1QX",
+        "country": "GB",
+        "type": "airport"
+      },
+      "dropoff": {
+        "latitude": 53.4883114,
+        "longitude": -2.2522131,
+        "address": "Manchester Airport (MAN), Manchester M90 1QX, UK",
+        "postcode": "M90 1QX",
+        "country": "GB",
+        "type": "airport"
+      }
+    }
+  ]
+}
