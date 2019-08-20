@@ -105,7 +105,7 @@ public class bookings extends DispatchApiGlobal {
 
         System.out.println(bookings.getBookings()[0].getReference() + " : " + getEndpoint());
 
-        given().when().get(getEndpoint()).then().statusCode(200).log().all();
+        given().when().get(getEndpoint()).then().statusCode(200).log().everything();
 
 //        Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
     }
