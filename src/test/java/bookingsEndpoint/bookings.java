@@ -1,6 +1,7 @@
 package bookingsEndpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import global.DispatchApiGlobal;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,13 +27,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-@ContextConfiguration(locations = {"classpath:/spring-test-config.xml","classpath:/spring-test-config-two.xml" })
-public class bookings extends AbstractTestNGSpringContextTests {
+public class bookings extends DispatchApiGlobal {
 
     String mockData = "./src/main/java/serviceEndpoints/mockData/bookings.json";
-
-    @Value("${spring.application.name}")
-    private String endpoint;
 
     /**
      * LINKS TEST SUITE
@@ -104,7 +101,7 @@ public class bookings extends AbstractTestNGSpringContextTests {
             e.printStackTrace();
         }
 
-        System.out.println(bookings.getBookings()[0].getReference() + " : " + endpoint);
+        System.out.println(bookings.getBookings()[0].getReference() + " : " + getEndpoint());
 
         Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
     }
