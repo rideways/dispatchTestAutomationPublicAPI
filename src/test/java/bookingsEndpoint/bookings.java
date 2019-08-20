@@ -1,6 +1,20 @@
 package bookingsEndpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.TestPropertySource;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -12,9 +26,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class bookings {
+@ContextConfiguration(locations = {"classpath:/spring-test-config.xml","classpath:/spring-test-config-two.xml" })
+public class bookings extends AbstractTestNGSpringContextTests {
 
     String mockData = "./src/main/java/serviceEndpoints/mockData/bookings.json";
+
+    @Value("${spring.application.name}")
+    private String endpoint;
 
     /**
      * LINKS TEST SUITE
@@ -86,7 +104,7 @@ public class bookings {
             e.printStackTrace();
         }
 
-        System.out.println(bookings.getBookings()[0].getReference());
+        System.out.println(bookings.getBookings()[0].getReference() + " : " + endpoint);
 
         Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
     }

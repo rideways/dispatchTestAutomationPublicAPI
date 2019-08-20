@@ -4,6 +4,6 @@
     <test name="SingleTest" allow-return-values="true">
         <classes>
             <class name="bookingsEndpoint.bookings"/>
-    </classes>
+        </classes>
     </test>
 </suite>
