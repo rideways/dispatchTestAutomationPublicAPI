@@ -9,6 +9,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 public class DispatchApiGlobal extends AbstractTestNGSpringContextTests {
 
     @Getter
-    @Value("${spring.application.name}")
+    @Value("${test.mock.endpoint}")
     private String endpoint;
 }
