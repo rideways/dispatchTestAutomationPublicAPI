@@ -1,30 +1,31 @@
 package global;
 
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import lombok.Getter;
 import lombok.Setter;
+import org.testng.log4testng.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.log4testng.Logger;
 
 @ContextConfiguration(locations = {"classpath:/spring-test-config.xml","classpath:/spring-test-config-two.xml" })
 public class DispatchApiGlobal extends AbstractTestNGSpringContextTests {
+
+
+    public Logger LOGGER = Logger.getLogger(DispatchApiGlobal.class);
 
     @Getter
     @Value("${test.mock.endpoint}")
     private String endpoint;
 
-    @Getter
-    @Setter
-    private static final Logger LOGGER = Logger.getLogger(DispatchApiGlobal.class);
+    public void waitForResponse(Response response){
+        LOGGER.info("MAKING CALL TO API");
+        int statusLine = response.statusCode();
 
-    public void waitForGetCallToComplete(Response response){
-        String statusLine = "";
+     //   if (!String.valueOf(statusLine).equals("200")){
+     //       LOGGER.info("MAKING CALL TO API");
+     //   }
 
-        while (!statusLine.equals("HTTP/1.1 500")) {
-            logger.info("Making call to API");
-            statusLine = response.statusLine();
-        }
     }
 }

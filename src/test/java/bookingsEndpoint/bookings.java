@@ -7,6 +7,7 @@ import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -37,6 +38,8 @@ import static io.restassured.RestAssured.given;
 public class bookings extends DispatchApiGlobal {
 
     String mockData = "./src/main/java/serviceEndpoints/mockData/bookings.json";
+
+    //private static final Logger LOGGER = Logger.getLogger(bookings.class);
 
     /**
      * LINKS TEST SUITE
@@ -113,11 +116,14 @@ public class bookings extends DispatchApiGlobal {
 
         //ValidatableResponse abc = given().when().get(getEndpoint()).then().statusCode(200);
 
+        LOGGER.info("THIS IS A TEST");
+
         RestAssured.baseURI = getEndpoint();
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.get();
+        waitForResponse(response);
 
-        waitForGetCallToComplete(response);
+        //waitForGetCallToComplete(response);
 
         //waitForGetCallToComplete();
         //Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
