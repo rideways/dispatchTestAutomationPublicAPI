@@ -24,11 +24,11 @@ public class DispatchApiGlobal extends AbstractTestNGSpringContextTests {
         int statusLine = response.statusCode();
 
         System.out.println(statusLine);
-/*
-        while (!String.valueOf(statusLine).equals("200")){
+
+        while (!String.valueOf(statusLine).equals("500")){
            LOGGER.info("MAKING CALL TO API #2");
            statusLine = response.statusCode();
-        }*/
+        }
 
     }
 }
