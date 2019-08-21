@@ -117,7 +117,7 @@ public class bookings extends DispatchApiGlobal {
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.get();
 
-        System.out.println(response.statusLine());
+        waitForGetCallToComplete(response);
 
         //waitForGetCallToComplete();
         //Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));

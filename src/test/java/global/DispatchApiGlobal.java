@@ -20,9 +20,11 @@ public class DispatchApiGlobal extends AbstractTestNGSpringContextTests {
     private static final Logger LOGGER = Logger.getLogger(DispatchApiGlobal.class);
 
     public void waitForGetCallToComplete(Response response){
+        String statusLine = "";
 
-        while (!response.equals("200")) {
+        while (!statusLine.equals("HTTP/1.1 500")) {
             logger.info("Making call to API");
+            statusLine = response.statusLine();
         }
     }
 }
