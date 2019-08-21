@@ -2,6 +2,10 @@ package bookingsEndpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import global.DispatchApiGlobal;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
+import io.restassured.specification.RequestSpecification;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +23,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
 import serviceEndpoints.bookingsMapper.MainBookings;
 
 import java.io.File;
@@ -105,9 +110,17 @@ public class bookings extends DispatchApiGlobal {
 
         System.out.println(bookings.getBookings()[0].getReference() + " : " + getEndpoint());
 
-        given().when().get(getEndpoint()).then().statusCode(200).log().everything();
 
-//        Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
+        ValidatableResponse abc = given().when().get(getEndpoint()).then().statusCode(200);
+
+        RestAssured.baseURI = getEndpoint();
+        RequestSpecification httpRequest = RestAssured.given();
+        Response response = httpRequest.get();
+
+        System.out.println(response.statusLine());
+
+        //waitForGetCallToComplete();
+        //Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
     }
 
     // DATE TESTS
