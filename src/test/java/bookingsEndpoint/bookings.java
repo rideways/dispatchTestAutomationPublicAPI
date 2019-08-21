@@ -92,8 +92,8 @@ public class bookings extends DispatchApiGlobal {
         {
             {
                 add(new Object[] {"Ensure the reference matches as expected","A ....","12345678"});
-                add(new Object[] {"Ensure the reference is not the trip ID","A ....","12345678"});
-                add(new Object[] {"Ensure the reference does not contain text","A ....","12345678"});
+               // add(new Object[] {"Ensure the reference is not the trip ID","A ....","12345678"});
+               // add(new Object[] {"Ensure the reference does not contain text","A ....","12345678"});
             }
         };
 
