@@ -15,7 +15,7 @@ public class DispatchApiGlobal extends AbstractTestNGSpringContextTests {
     public Logger LOGGER = Logger.getLogger(DispatchApiGlobal.class);
 
     @Getter
-    @Value("${test.mock.endpoint")
+    @Value("${test.mock.endpoint}")
     private String endpoint;
 
     public void waitForResponse(Response response){
