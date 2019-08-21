@@ -100,7 +100,7 @@ public class bookings extends DispatchApiGlobal {
         return dp.iterator();
     }
 
-    @Retryable(value = {AssertionError.class},maxAttemptsExpression = "${search.retry.maxAttempts:5}")
+
     @Test(dataProvider="bookingsEndpointReferenceTests",groups={"bookingsRegression","bookingReferenceTests"})
     public void testBookingsEndpointReference(String regressionTest, String testCondition, String expectedOutcome){
 
@@ -122,7 +122,7 @@ public class bookings extends DispatchApiGlobal {
 
         int code = given().when().get(getEndpoint()).statusCode();
 
-        Assert.assertTrue(String.valueOf(code).equals("500"));
+        testRetry(code);
 
 /*        RestAssured.baseURI = getEndpoint();
         RequestSpecification httpRequest = RestAssured.given();
@@ -130,6 +130,11 @@ public class bookings extends DispatchApiGlobal {
         waitForResponse(response);*/
 
         //Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
+    }
+
+    @Retryable(value = {AssertionError.class},maxAttemptsExpression = "${search.retry.maxAttempts:5}")
+    public void testRetry(int code){
+        Assert.assertTrue(String.valueOf(code).equals("500"));
     }
 
     // DATE TESTS
