@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -99,6 +100,7 @@ public class bookings extends DispatchApiGlobal {
         return dp.iterator();
     }
 
+    @Retryable(value = {AssertionError.class},maxAttemptsExpression = "${search.retry.maxAttempts:5}")
     @Test(dataProvider="bookingsEndpointReferenceTests",groups={"bookingsRegression","bookingReferenceTests"})
     public void testBookingsEndpointReference(String regressionTest, String testCondition, String expectedOutcome){
 
@@ -119,7 +121,7 @@ public class bookings extends DispatchApiGlobal {
         LOGGER.info("THIS IS A TEST");
 
 
-        given().when().get(getEndpoint()).then().statusCode(200).assertThat().log().everything();
+        given().when().get(getEndpoint()).then().statusCode(500).assertThat().log().everything();
 
 
 /*        RestAssured.baseURI = getEndpoint();
