@@ -111,7 +111,7 @@ public class bookings extends DispatchApiGlobal {
         System.out.println(bookings.getBookings()[0].getReference() + " : " + getEndpoint());
 
 
-        ValidatableResponse abc = given().when().get(getEndpoint()).then().statusCode(200);
+        //ValidatableResponse abc = given().when().get(getEndpoint()).then().statusCode(200);
 
         RestAssured.baseURI = getEndpoint();
         RequestSpecification httpRequest = RestAssured.given();
