@@ -102,7 +102,7 @@ public class bookings extends DispatchApiGlobal {
 
     @Retryable(value = {AssertionError.class},maxAttemptsExpression = "${search.retry.maxAttempts:5}")
     @Test(dataProvider="bookingsEndpointReferenceTests",groups={"bookingsRegression","bookingReferenceTests"})
-    public void testBookingsEndpointReference(String regressionTest, String testCondition, String expectedOutcome){
+    public ValidatableResponse testBookingsEndpointReference(String regressionTest, String testCondition, String expectedOutcome){
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -120,8 +120,7 @@ public class bookings extends DispatchApiGlobal {
 
         LOGGER.info("THIS IS A TEST");
 
-
-        given().when().get(getEndpoint()).then().statusCode(500).assertThat().log().everything();
+        return given().when().get(getEndpoint()).then().statusCode(500).assertThat();
 
 
 /*        RestAssured.baseURI = getEndpoint();
