@@ -119,10 +119,13 @@ public class bookings extends DispatchApiGlobal {
         LOGGER.info("THIS IS A TEST");
 
 
-        RestAssured.baseURI = getEndpoint();
+        given().when().get(getEndpoint()).then().statusCode(200).assertThat().log().everything();
+
+
+/*        RestAssured.baseURI = getEndpoint();
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.get();
-        waitForResponse(response);
+        waitForResponse(response);*/
 
         //Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
     }
