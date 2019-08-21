@@ -98,14 +98,6 @@
             <artifactId>xml-path</artifactId>
             <version>4.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-        </dependency>
     </dependencies>
 
     <profiles>

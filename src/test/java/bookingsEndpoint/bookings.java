@@ -118,14 +118,12 @@ public class bookings extends DispatchApiGlobal {
 
         LOGGER.info("THIS IS A TEST");
 
+
         RestAssured.baseURI = getEndpoint();
         RequestSpecification httpRequest = RestAssured.given();
         Response response = httpRequest.get();
         waitForResponse(response);
 
-        //waitForGetCallToComplete(response);
-
-        //waitForGetCallToComplete();
         //Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
     }
 
