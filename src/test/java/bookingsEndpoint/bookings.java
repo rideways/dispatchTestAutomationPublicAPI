@@ -1,7 +1,6 @@
 package bookingsEndpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import global.DispatchApiGlobal;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
@@ -9,16 +8,19 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.boot.test.context.TestComponent;
+import org.springframework.context.annotation.*;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.TestPropertySource;
@@ -36,9 +38,17 @@ import java.util.Iterator;
 
 import static io.restassured.RestAssured.given;
 
-public class bookings extends DispatchApiGlobal {
+@RunWith(SpringJUnit4ClassRunner.class)
+//@EnableAutoConfiguration
+@SpringBootApplication
+@SpringBootTest
+public class bookings {
 
     String mockData = "./src/main/java/serviceEndpoints/mockData/bookings.json";
+
+    public bookings(){
+
+    }
 
     //private static final Logger LOGGER = Logger.getLogger(bookings.class);
 
@@ -58,7 +68,7 @@ public class bookings extends DispatchApiGlobal {
         return dp.iterator();
     }
 
-    @Test(dataProvider="bookingsEndpointTypeTests",groups={"bookingsRegression","bookingTypeTests"})
+    //@Test(dataProvider="bookingsEndpointTypeTests",groups={"bookingsRegression","bookingTypeTests"})
     public void testBookingsEndpointType(String regressionTest, String testCondition, String expectedOutcome){
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -113,16 +123,18 @@ public class bookings extends DispatchApiGlobal {
             e.printStackTrace();
         }
 
-        System.out.println(bookings.getBookings()[0].getReference() + " : " + getEndpoint());
-
+        //System.out.println(bookings.getBookings()[0].getReference() + " : " + getEndpoint());
 
         //ValidatableResponse abc = given().when().get(getEndpoint()).then().statusCode(200);
 
-        LOGGER.info("THIS IS A TEST");
+        //LOGGER.info("THIS IS A TEST");
 
-        int code = given().when().get(getEndpoint()).statusCode();
+//        int code = given().when().get(getEndpoint()).statusCode();
 
-        testRetry(code);
+
+        int code = 200;
+
+        //dispatchConfiguration.retryTest();
 
 /*        RestAssured.baseURI = getEndpoint();
         RequestSpecification httpRequest = RestAssured.given();
@@ -132,10 +144,7 @@ public class bookings extends DispatchApiGlobal {
         //Assert.assertTrue(expectedOutcome.equals(bookings.getBookings()[0].getReference()));
     }
 
-    @Retryable(value = {AssertionError.class},maxAttemptsExpression = "${search.retry.maxAttempts:5}")
-    public void testRetry(int code){
-        Assert.assertTrue(String.valueOf(code).equals("500"));
-    }
+
 
     // DATE TESTS
 
@@ -152,7 +161,7 @@ public class bookings extends DispatchApiGlobal {
     }
 
 
-    @Test(dataProvider="bookingsEndpointDateTests",groups={"bookingsRegression","bookingDateTests"})
+    //@Test(dataProvider="bookingsEndpointDateTests",groups={"bookingsRegression","bookingDateTests"})
     public void testBookingsEndpointDate(String regressionTest, String testCondition, String expectedOutcome){
 
         ObjectMapper objectMapper = new ObjectMapper();
