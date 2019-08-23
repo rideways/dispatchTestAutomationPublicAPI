@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+    <test name="SingleTest" allow-return-values="true">
+        <classes>
+            <class name="global.DispatchBookings"/>
+        </classes>
+    </test>
+</suite>
